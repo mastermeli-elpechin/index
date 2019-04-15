@@ -22,4 +22,5 @@ public interface IIncidenteService {
     public Collection<Incidente> getProyectoIncidentes (Proyecto proyecto);
     //Incidentes asignados a un determinado usuario.
     public Collection<Incidente> getIncidentesAsignadosUsuario (Usuario usuario);
+
 }
