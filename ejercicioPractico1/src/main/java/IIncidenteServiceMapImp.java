@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Date;
 
 public class IIncidenteServiceMapImp implements IIncidenteService{
 
@@ -9,6 +10,9 @@ public class IIncidenteServiceMapImp implements IIncidenteService{
 
     @Override
     public void addIncidente(Incidente incidente) {
+        Date fecha = new Date();
+        //Si añado un incidente, se carga la fecha del incidente
+        incidenteArray.get(incidente.getId()).setFecha_cracion(fecha);
         //Verifico si el usuario existe antes de agregar un incidente
             incidenteArray.add(incidente);
     }
@@ -20,11 +24,14 @@ public class IIncidenteServiceMapImp implements IIncidenteService{
 
     @Override
     public void changeEstado(int id, Estado estado) throws UsuarioException{
-       try{
+       Date fecha = new Date();
+        try{
 
         //cambiar el estado, del incidente con indice id solo si su estado es ASIGNADO
         if(incidenteArray.get(id).getEstado() == Estado.ASIGNADO){
             incidenteArray.get(id).setEstado(Estado.RESUELTO);
+            //Como se cambia el estado del incidente a resuelto, se realiza un seteo de la fecha.
+            incidenteArray.get(id).setFecha_solucion(fecha);
         }
        } catch (Exception e) {
            throw new UsuarioException("No puede modificarse un incidente resuelto.");
